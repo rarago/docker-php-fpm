@@ -1,5 +1,2 @@
-# docker-php-fpm
-Bitnami based php-fpm with redis and newrelic extensions
-修改php版本为bitnami 5.6 版本
-
-修改apt 源为国内源
+基于bitnama php-fpm 5.6版本 ，增加 redis 扩展
+ 
