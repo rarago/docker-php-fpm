@@ -1,10 +1,17 @@
-FROM bitnami/php-fpm:latest
+FROM bitnami/php-fpm:5.6
 MAINTAINER Zetanova <office@zetanova.eu>
 
 
 ENV REDIS_VERSION=3.1.1 \
 	EXTENSION_DIR="/opt/bitnami/php/lib/php/extensions" \
 	DEBIAN_FRONTEND=noninteractive
+	
+#change source 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
+    echo "deb http://mirrors.163.com/debian/ jessie main non-free contrib" >/etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/debian/ jessie main non-free contrib" >>/etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/debian/ jessie-proposed-updates main non-free contrib" >>/etc/apt/sources.list
 	
 #INIT
 RUN pecl channel-update pecl.php.net \
