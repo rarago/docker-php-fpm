@@ -42,36 +42,14 @@ RUN apt-get update \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-#Install Newrelic-php
-ENV NR_INSTALL_SILENT=true
-#ENV NR_INSTALL_KEY={{key "NEWRELIC_LICENSE_KEY"}}
-RUN apt-get update \
-	&& apt-get -yqq install wget python-setuptools \
-	&& easy_install pip\
-	&& mkdir -p /opt/newrelic\
-	&& cd /opt/newrelic\
-	&& wget -r -nd --no-parent -Alinux.tar.gz \
-		http://download.newrelic.com/php_agent/release/ >/dev/null 2>&1 \
-    && tar -xzf newrelic-php*.tar.gz --strip=1 \
-    && bash newrelic-install install \
-    && cp /opt/newrelic/agent/x64/newrelic-20160303.so $EXTENSION_DIR/newrelic.so \
-	&& rm -dR /opt/newrelic/agent \
-	&& rm newrelic-php*.gz\
-	&& cd / \
-	&& pip install newrelic-plugin-agent \
-	&& mkdir -p /var/log/newrelic \
-	&& mkdir -p /var/run/newrelic\
-	&& apt-get remove -yqq wget python-setuptools \
-	&& apt-get autoremove -y \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-	
 
+echo "extension=redis.so" >> /bitnami/php/conf/php.ini
+    
 #cleanup
-RUN apt-get remove -yqq autoconf wget python-setuptools build-essential \
-	&& apt-get autoremove -y \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#RUN apt-get remove -yqq autoconf wget python-setuptools build-essential \
+#	&& apt-get autoremove -y \
+#	&& apt-get clean \
+#	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	
 ENV DEBIAN_FRONTEND teletype
 
