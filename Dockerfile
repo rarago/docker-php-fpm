@@ -43,7 +43,7 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-echo "extension=redis.so" >> /bitnami/php/conf/php.ini
+RUN  echo "extension=redis.so" >> /bitnami/php/conf/php.ini
     
 #cleanup
 #RUN apt-get remove -yqq autoconf wget python-setuptools build-essential \
